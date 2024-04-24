@@ -1,0 +1,215 @@
+/* CSS for the Guess Master website */
+
+/* Reset default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    animation: 10000ms ease-in-out infinite color-change;
+}
+
+h2 {
+
+    font-size: 75px;
+}
+
+@keyframes color-change {
+    0% {
+      background-color: teal;
+    }
+    20% {
+      background-color: gold;
+    }
+    40% {
+      background-color: indianred;
+    }
+    60% {
+      background-color: violet;
+    }
+    80% {
+      background-color: green;
+    }
+    100% {
+      background-color: teal;
+    }
+  }
+
+/* Main container styles */
+.main {
+    border: 5px solid black;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Title box styles */
+.title-box {
+    border: 2px solid black;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #ddd;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Input box styles */
+.input-box {
+    margin-bottom: 20px;
+}
+
+.input-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-box button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-box button:hover {
+    background-color: #0056b3;
+}
+
+/* Button box styles */
+.button-box {
+    margin-bottom: 20px;
+}
+
+.button-box button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-box button:hover {
+    background-color: #218838;
+}
+
+.button-box button.disabled {
+    padding: 10px 20px;
+    background-color: #626763;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed;
+}
+
+/* Guess result styles */
+.guess-result {
+    margin: 20px auto;
+}
+
+#guessResult {
+    font-weight: bold;
+}
+
+/* Stats box styles */
+.stats-box {
+    border: 2px solid black;
+    width: 48%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.stats-title {
+    background-color: #ddd;
+    padding: 10px;
+    border-bottom: 2px solid black;
+    font-weight: bold;
+}
+
+.stat {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Guess result separator styles */
+.guess-result-separator {
+    border: 2px solid black;
+    width: 100%;
+    text-align: left;
+    margin-top: auto;
+    padding: 10px;
+    background-color: #ddd;
+}
+
+.guess-result-separator .stats-title {
+    color: #555;
+    padding: 10px;
+    border-bottom: 2px solid black;
+    font-weight: bold;
+}
+
+.guess-result-separator #score {
+    display: inline-block;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+/* Corner button styles */
+.corner-button {
+    border: 2px solid black;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 20px 25px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.corner-button:hover {
+    background-color: #0056b3;
+}
+
+/* How to play content styles */
+.how-to-play-content {
+    display: none;
+    margin-top: 10px;
+}
+
+.list {
+    font-size: 25px;
+}
+
+h3 {
+    font-size: 40px;
+}
+
+.text {
+
+    font-size: 20px; 
+}

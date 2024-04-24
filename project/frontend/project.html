@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- Thanks to Eric Marc Antonio for laying the foundation of this starter code -->
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>EECS 1012 Project</title>
+        <!-- link to the JQuery, which will help us send data to and from the back end -->
+        <link rel="stylesheet" href="groupProject.css">
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        <script>
+
+            function setRange() { 
+                var range = document.getElementById("range").value
+                var values = {"range": range}
+
+                //pass this information to the back end, and receive a response.
+                $.getJSON("http://localhost:8000/range", values, function(data) { 
+                    var result = "<b>Data received from the server:</b><br>"
+                    for (const [key, value] of Object.entries(data)) {
+                        console.log(key, value);
+                        result += key + ": " + value + "<br>"
+                    }  
+                    document.getElementById("guessDifficulty").innerHTML = data.Difficulty; 
+                    document.getElementById("guessButton").disabled = false;
+                    document.getElementById("hintButton").disabled = false;
+                    document.getElementById("giveUpButton").disabled = false;
+                });         
+
+            }
+
+            function guessNum() {            
+                var guess = document.getElementById("guess").value;
+                var values = {"guess": guess};
+                // next, we send the values to an address on the server using getJSON.
+                // the syntax for the getJSON method is as follows:
+                //
+                // $.getJSON(url, values, callback);
+                //
+                // url is the address (or route) to which you want to send data,
+                // values is a dictionary of data (or key-value pairs) you want to send,
+                // callback is a function that processes a dictionary of
+                // data (or key-value pairs) returned from the server.
+                // The format of the callback function is as follows:
+                //
+                // function(data) { 
+                //     do something with 'data' here!
+                //}
+                //
+                $.getJSON("http://localhost:8000/guess", values, function(data) {
+                    var result = "<b>Data received from the server:</b><br>"
+                    for (const [key, value] of Object.entries(data)) {
+                        console.log(key, value);
+                        result += key + ": " + value + "<br>"
+                    }  
+                    document.getElementById("guessResult").innerHTML = data.Result;
+                    document.getElementById("attemptCount").innerHTML = data.Attempt;
+                    document.getElementById("winStreak").innerHTML = data.Win.split(" ")[1];
+                    document.getElementById("score").innerHTML = data.Score;
+
+                    if(data.Result.toLowerCase().includes("correct")) {
+                        document.getElementById("guessButton").disabled = true;
+                        document.getElementById("hintButton").disabled = true;
+                        document.getElementById("giveUpButton").disabled = true;
+                    }
+                });
+            }
+
+            function hints() {
+                var values = {};
+                $.getJSON("http://localhost:8000/hints", values, function(data) {
+                    var result = "<b>Data received from the server:</b><br>"
+                    for (const [key, value] of Object.entries(data)) {
+                        console.log(key, value);
+                        result += key + ": " + value + "<br>"
+                    }  
+                    document.getElementById("hintCount").innerHTML = data.Hints;
+                    document.getElementById("hint").innerHTML = data.Hint;
+                });
+            }
+
+            function giveUp() {
+                document.getElementById("guessButton").disabled = true;
+                document.getElementById("hintButton").disabled = true;
+                document.getElementById("giveUpButton").disabled = true;
+                document.getElementById("button-box").classList.add("disabled");
+                var values = {};
+                $.getJSON("http://localhost:8000/giveUp", values, function(data) {
+                    var result = "<b>Data received from the server:</b><br>"
+                    for (const [key, value] of Object.entries(data)) {
+                        console.log(key, value);
+                        result += key + ": " + value + "<br>"
+                    }  
+                    document.getElementById("guessResult").innerHTML = data.Result;
+                });
+            }
+        </script>
+
+    </head>
+
+    <body>
+        
+        <div class="main">
+            <!-- How to Play Button in top left corner -->
+            <div id="homebutton" onclick="location.href='Home.html'" class="corner-button">Home!</div>
+    
+             <!-- Home Button in top right corner -->
+             <div id="howToPlayButton" onclick="location.href='HowToPlay.html'" class="corner-button2">How To Play?</div>
+    
+            <!-- Title "Guess Master!" -->
+            <div class="title-box">Guess Master!</div>
+
+        <!-- Input Box for Range and Set Range Button -->
+        <div class="input-box">
+            <label for="rangeResult">Guess Difficulty: <span id="guessDifficulty">-</span> </label>
+            <input type="number" id="range" placeholder="Enter range...">
+            <button onclick="setRange()">Set Range</button>
+        </div>
+
+        <!-- Input Box for Guess -->
+        <div class="input-box">
+            <label for="guess">Guess:</label>
+            <input type="number" id="guess" placeholder="Enter your guess...">
+        </div>
+
+        <!-- Buttons for Guess and Hint -->
+        <div id="button-box" class="button-box">
+            <button id="guessButton" onclick="guessNum()">Guess</button>
+            <button id="hintButton" onclick="hints()">Hint</button>
+            <button id="giveUpButton" onclick="giveUp()">Give up</button>
+        </div>
+        
+
+        <!-- Guess Result -->
+        <div class="guess-result">Guess Result: <span id="guessResult">-</span></div>        
+
+        <!-- Game Stats -->
+        <div class="stats-box game-stats-box">
+            <div class="stats-title">Game Stats</div>
+            <div class="stat">Attempt: <span id="attemptCount">0</span></div>
+            <div class="stat">Win Streak: <span id="winStreak">0</span></div>
+        </div>
+
+        <!-- Hint Stats -->
+        <div class="stats-box hint-stats-box">
+            <div class="stats-title">Hint Stats</div>
+            <div class="stat"># of Hints: <span id="hintCount">0</span></div>
+            <div class="stat">Hint: <span id="hint">:</span></div>
+        </div>
+
+        <!-- Guess Result Separator -->
+        <div class="guess-result-separator">
+            <div class="stats-title">Total Correct Guesses</div>
+            <div class="stat">Score: <span id="score">-</span></div>
+        </div>
+
+        <!-- How to Play Content (Initially Hidden) -->
+        <p id="howToPlayContent" class="how-to-play-content" style="display: none;"></p>
+    </div>
+
+
+
+    </body>
+
+</html>

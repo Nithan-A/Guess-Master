@@ -1,0 +1,4 @@
+Number is: 4. This was written at 27 seconds past the minute.
+Number is: 4. This was written at 29 seconds past the minute.
+Number is: 5. This was written at 36 seconds past the minute.
+Number is: undefined. This was written at 27 seconds past the minute.
